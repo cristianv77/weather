@@ -3,8 +3,7 @@ require "rails_helper"
 RSpec.describe OpenWeather::PositionForCity do
   let(:city) { "New York" }
   let(:state) { "New York" }
-  let(:country) { "US" }
-  let(:params) { { city: city, state: state, country: country } }
+  let(:params) { { city:, state: } }
 
   describe "#call" do
     context "when parameters are valid" do
@@ -21,7 +20,7 @@ RSpec.describe OpenWeather::PositionForCity do
       end
 
       it "makes the correct API call" do
-        expected_url = "/geo/1.0/direct?q=#{city},#{state},#{country}&limit=1&appid=#{ENV.fetch("OPEN_WEATHER_API_KEY")}"
+        expected_url = "/geo/1.0/direct?q=#{city},#{state},US&limit=1&appid=#{ENV.fetch("OPEN_WEATHER_API_KEY")}"
 
         expect_api_call(described_class, expected_url)
         described_class.call(params)
@@ -29,42 +28,22 @@ RSpec.describe OpenWeather::PositionForCity do
     end
 
     context "when city is missing" do
-      let(:params) { { state: state, country: country } }
+      let(:params) { { state: } }
 
       it "returns failure with error message" do
         result = described_class.call(params)
 
-        expect_failure_result(result, "city, state and country are required")
+        expect_failure_result(result, "city and state are required")
       end
     end
 
     context "when state is missing" do
-      let(:params) { { city: city, country: country } }
+      let(:params) { { city: } }
 
       it "returns failure with error message" do
         result = described_class.call(params)
 
-        expect_failure_result(result, "city, state and country are required")
-      end
-    end
-
-    context "when country is missing" do
-      let(:params) { { city: city, state: state } }
-
-      it "returns failure with error message" do
-        result = described_class.call(params)
-
-        expect_failure_result(result, "city, state and country are required")
-      end
-    end
-
-    context "when multiple parameters are missing" do
-      let(:params) { { city: city } }
-
-      it "returns failure with error message" do
-        result = described_class.call(params)
-
-        expect_failure_result(result, "city, state and country are required")
+        expect_failure_result(result, "city and state are required")
       end
     end
 
@@ -74,7 +53,7 @@ RSpec.describe OpenWeather::PositionForCity do
       it "returns failure with error message" do
         result = described_class.call(params)
 
-        expect_failure_result(result, "city, state and country are required")
+        expect_failure_result(result, "city and state are required")
       end
     end
 
@@ -86,7 +65,7 @@ RSpec.describe OpenWeather::PositionForCity do
       it "returns failure with error message" do
         result = described_class.call(params)
 
-        expect_failure_result(result, "please provide a valid city, state and country")
+        expect_failure_result(result, "please provide a valid city and state")
       end
     end
 
@@ -98,7 +77,7 @@ RSpec.describe OpenWeather::PositionForCity do
       it "returns failure with error message" do
         result = described_class.call(params)
 
-        expect_failure_result(result, "please provide a valid city, state and country")
+        expect_failure_result(result, "please provide a valid city and state")
       end
     end
   end
