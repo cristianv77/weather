@@ -58,11 +58,13 @@ group :development, :test do
 
   # Factory Bot for setting up Ruby objects as test data
   gem "factory_bot_rails"
+
+  # Pry for debugging
+  gem "pry-rails"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "pry-rails"
   gem "web-console"
 end
 
@@ -71,6 +73,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 6.0"
+
+  # Code coverage reporting
+  gem "simplecov", require: false
 end
 
 gem "rspec-rails", "~> 8.0", groups: [ :development, :test ]
