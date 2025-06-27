@@ -8,11 +8,8 @@ RSpec.describe WeatherController, type: :controller do
       let(:weather_result) do
         double(
           "WeatherResult",
-          current_weather: { "temp" => 20, "description" => "Sunny" },
-          forecast: [ { "date" => "2024-01-01", "temp" => 22 } ],
-          city: "New York",
-          state: "NY",
-          country: "US"
+          weather_record: create(:weather_record),
+          error: nil
         )
       end
 

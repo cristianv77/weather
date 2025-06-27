@@ -1,15 +1,20 @@
 class RetrieveWeatherForGeolocation < OpenWeather::BaseApiClient
+  attr_accessor :weather_record
+
   def call
     return fail!(error: "latitude and longitude are required") if latitude.blank? || longitude.blank?
 
-    set_location_data
-    set_weather_data
-    parse_weather_data
+    @weather_record = WeatherRecord.find_or_initialize_by(latitude:, longitude:)
 
-    success!(
-      city: @city, state: @state, country: @country,
-      current_weather: @current_weather, forecast: @forecast
-    )
+    unless weather_record.recent?
+      set_location_data
+      set_weather_data
+
+      weather_record.retrieved_at = Time.current
+      weather_record.save!
+    end
+
+    success!(weather_record:)
   end
 
   private
@@ -27,9 +32,9 @@ class RetrieveWeatherForGeolocation < OpenWeather::BaseApiClient
 
     return fail!(error: "failed to retrieve location data") unless location_data.success?
 
-    @city = location_data.city
-    @state = location_data.state
-    @country = location_data.country
+    weather_record.city = location_data.city
+    weather_record.state = location_data.state
+    weather_record.country = location_data.country
   end
 
   def set_weather_data
@@ -37,11 +42,7 @@ class RetrieveWeatherForGeolocation < OpenWeather::BaseApiClient
 
     return fail!(error: "failed to retrieve weather data") unless weather_data.success?
 
-    @weather_data = weather_data
-  end
-
-  def parse_weather_data
-    @current_weather = @weather_data.current_weather
-    @forecast = @weather_data.forecast["list"]
+    weather_record.current_weather = weather_data.current_weather
+    weather_record.forecast = weather_data.forecast["list"]
   end
 end

@@ -13,11 +13,8 @@ class WeatherController < ApplicationController
         "weather_results",
         partial: "weather_results",
         locals: {
-          current_weather: result.current_weather,
-          forecast: result.forecast,
-          city: result.city,
-          state: result.state,
-          country: result.country
+          weather_record: result.weather_record,
+          error: result.error || ("There was an error retrieving the weather data" if result.weather_record.nil?)
         }
       )
     end

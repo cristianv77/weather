@@ -110,6 +110,11 @@ GEM
     drb (2.2.3)
     erb (5.0.1)
     erubi (1.13.1)
+    factory_bot (6.5.4)
+      activesupport (>= 6.1.0)
+    factory_bot_rails (6.5.0)
+      factory_bot (~> 6.5)
+      railties (>= 6.1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     httparty (0.23.1)
@@ -287,6 +292,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    shoulda-matchers (6.5.0)
+      activesupport (>= 5.2.0)
     solidservice (1.0.0)
       activesupport (> 5)
     sprockets (4.2.2)
@@ -343,6 +350,7 @@ DEPENDENCIES
   capybara
   debug
   dotenv-rails
+  factory_bot_rails
   httparty
   importmap-rails
   jbuilder
@@ -353,6 +361,7 @@ DEPENDENCIES
   rspec-rails (~> 8.0)
   rubocop-rails-omakase
   selenium-webdriver
+  shoulda-matchers (~> 6.0)
   solidservice
   sprockets-rails
   stimulus-rails
