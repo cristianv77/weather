@@ -1,0 +1,14 @@
+<% error ||= nil %>
+
+<%= turbo_frame_tag "weather_results" do %>
+  <% if error %>
+    <div class="max-w-md mx-auto mt-8 p-4 bg-red-50 border border-red-200 rounded-md">
+      <div class="text-red-800 text-center">
+        <%= error %>
+      </div>
+    </div>
+  <% elsif current_weather %>
+    <%= render "weather/principal_card", current_weather:, city:, state:, country: %>
+    <%= render "weather/forecast_index", forecast:, timezone: current_weather.dig("timezone") %>
+  <% end %>
+<% end %>
