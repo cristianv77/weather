@@ -1,0 +1,29 @@
+<% day_weather = item.dig("weather").first %>
+<% timestamp = Time.at(item.dig("dt").to_i) %>
+<div class="bg-gray-50 rounded-lg p-2 text-center border border-gray-200 min-h-[120px] flex flex-col justify-between">
+  <div>
+    <div class="text-xs font-medium text-gray-900 mb-1">
+      <%= timestamp.strftime("%a") %>
+    </div>
+    <div class="text-xs text-gray-500 mb-1">
+      <%= timestamp.strftime("%b %d") %>
+    </div>
+    <div class="text-xs text-gray-400 mb-2">
+      <%= timestamp.strftime("%I:%M %p") %>
+    </div>
+  </div>
+
+  <% if day_weather&.dig("icon") %>
+    <div class="flex justify-center mb-2">
+      <%= weather_icon(day_weather) %>
+    </div>
+  <% end %>
+
+  <div class="text-xs text-gray-600 mb-2 line-clamp-1">
+    <%= day_weather&.dig("description")&.titleize %>
+  </div>
+
+  <div class="text-sm font-medium text-gray-900">
+    <%= item.dig("main", "temp")&.round %>°F
+  </div>
+</div>

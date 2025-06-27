@@ -10,7 +10,7 @@ class OpenWeather::PositionForCity < OpenWeather::BaseApiClient
 
     parsed_response = response.parsed_response.first
 
-    success!(parsed_response.slice("lat", "lon"))
+    success!(parsed_response.slice("lat", "lon", "name", "state", "country"))
   end
 
   private

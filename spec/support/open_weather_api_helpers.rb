@@ -42,45 +42,49 @@ module OpenWeatherApiHelpers
   def sample_weather_response
     double(
       success?: true,
-      parsed_response: {
-        "coord" => { "lat" => 40.7128, "lon" => -74.0060 },
-        "weather" => [
+      parsed_response:
         {
-          "id" => 800,
-          "main" => "Clear",
-          "description" => "clear sky",
-          "icon" => "01d"
-        }
-      ],
-      "base" => "stations",
-      "main" => {
-        "temp" => 72.5,
-        "feels_like" => 70.2,
-        "temp_min" => 68.0,
-        "temp_max" => 75.0,
-        "pressure" => 1013,
-        "humidity" => 65
-      },
-      "list": [],
-      "visibility" => 10000,
-      "wind" => {
-        "speed" => 5.2,
-        "deg" => 180
-      },
-      "clouds" => { "all" => 0 },
-      "dt" => 1640995200,
-      "sys" => {
-        "type" => 2,
-        "id" => 2008101,
-        "country" => "US",
-        "sunrise" => 1640956800,
-        "sunset" => 1640990400
-      },
-      "timezone" => -18000,
-      "id" => 5128581,
-      "name" => "New York",
-      "cod" => 200
-    }
+          "coord" => { "lat" => 40.7128, "lon" => -74.0060 },
+          "weather" => [
+          {
+            "id" => 800,
+            "main" => "Clear",
+            "description" => "clear sky",
+            "icon" => "01d"
+          }
+        ],
+        "base" => "stations",
+        "main" => {
+          "temp" => 72.5,
+          "feels_like" => 70.2,
+          "temp_min" => 68.0,
+          "temp_max" => 75.0,
+          "pressure" => 1013,
+          "humidity" => 65
+        },
+        "list": [],
+        "visibility" => 10000,
+        "wind" => {
+          "speed" => 5.2,
+          "deg" => 180
+        },
+        "clouds" => { "all" => 0 },
+        "dt" => 1640995200,
+        "sys" => {
+          "type" => 2,
+          "id" => 2008101,
+          "country" => "US",
+          "sunrise" => 1640956800,
+          "sunset" => 1640990400
+        },
+        "timezone" => -18000,
+        "id" => 5128581,
+        "name" => "New York",
+        "cod" => 200,
+        "city" => "New York",
+        "state" => "New York",
+        "country" => "US"
+      }
     )
   end
 

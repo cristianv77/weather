@@ -1,0 +1,28 @@
+class WeatherController < ApplicationController
+  def index
+    if params[:latitude].present? && params[:longitude].present?
+      @latitude = params[:latitude]
+      @longitude = params[:longitude]
+
+      result = RetrieveWeatherForGeolocation.call(
+        latitude: params[:latitude],
+        longitude: params[:longitude]
+      )
+
+      render turbo_stream: turbo_stream.update(
+        "weather_results",
+        partial: "weather_results",
+        locals: {
+          current_weather: result.current_weather,
+          forecast: result.forecast,
+          city: result.city,
+          state: result.state,
+          country: result.country
+        }
+      )
+    end
+  end
+
+  def search
+  end
+end
