@@ -1,4 +1,4 @@
-class RetrieveWeatherForGeolocation < OpenWeather::BaseApiClient
+class RetrieveWeatherForGeolocation < SolidService::Base
   attr_accessor :weather_record
 
   def call

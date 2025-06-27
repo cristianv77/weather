@@ -40,6 +40,9 @@ gem "httparty"
 # Solid service
 gem "solidservice"
 
+# Country and state management
+gem "city-state"
+
 # Tailwind CSS for styling
 gem "tailwindcss-rails"
 
@@ -73,6 +76,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 6.0"
+  gem "rails-controller-testing"
 
   # Code coverage reporting
   gem "simplecov", require: false

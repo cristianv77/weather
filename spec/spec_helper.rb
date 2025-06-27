@@ -1,7 +1,6 @@
 # SimpleCov must be required and started before any other code is loaded
 require 'simplecov'
 SimpleCov.start 'rails' do
-  # Add any custom configuration here
   add_filter '/spec/'
   add_filter '/config/'
   add_filter '/vendor/'
@@ -10,7 +9,6 @@ SimpleCov.start 'rails' do
   add_filter '/app/jobs/'
   add_filter '/app/mailers/'
 
-  # You can add groups to organize coverage reports
   add_group 'Models', 'app/models'
   add_group 'Controllers', 'app/controllers'
   add_group 'Services', 'app/services'

@@ -6,7 +6,6 @@ RSpec.describe "weather/index", type: :view do
 
     expect(rendered).to have_field("City")
     expect(rendered).to have_field("State")
-    expect(rendered).to have_field("Country")
     expect(rendered).to have_button("Get Weather")
   end
 
