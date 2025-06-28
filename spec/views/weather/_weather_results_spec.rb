@@ -38,7 +38,7 @@ RSpec.describe "weather/_weather_results", type: :view do
       subject
 
       expect(rendered).to have_css(".grid")
-      expect(rendered).to have_css(".grid-cols-4")
+      expect(rendered).to have_css(".grid-cols-2")
     end
   end
 end

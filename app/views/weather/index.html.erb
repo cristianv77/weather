@@ -1,13 +1,13 @@
-<div class="container px-2 py-8 grid grid-cols-1 md:grid-cols-3 gap-8 min-h-screen">
-  <div class="md:col-span-1 md:sticky md:top-4 h-fit">
+<div class="px-2 py-8 grid grid-cols-1 md:grid-cols-3 gap-8 min-h-screen w-full">
+  <div class="md:col-span-1 md:sticky md:top-4 h-fit md:mx-10">
     <h1 class="text-3xl font-bold text-center mb-8">Weather App</h1>
 
-    <div class="max-w-md mx-auto" data-controller="location">
+    <div data-controller="location">
       <%= render "search_form" %>
     </div>
 
-    <div class="max-w-md mx-auto mt-8 text-center text-gray-500">
-      Enter a city, state, and country to get weather information
+    <div class="mx-auto mt-8 text-center text-gray-500">
+      Enter a city and a state to get weather information
     </div>
   </div>
 
