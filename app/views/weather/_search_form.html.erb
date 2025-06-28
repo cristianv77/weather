@@ -5,8 +5,8 @@
         <%= form.label :state, "State", class: "block text-sm font-medium text-gray-700" %>
         <%= form.select :state,
             options_for_select(states_for_country, params[:state]),
-            {},
-            class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500",
+            { include_blank: "Select a state" },
+            class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5",
             required: true,
             data: {
               action: "change->location#updateOptions",
@@ -18,8 +18,8 @@
         <%= form.label :city, "City", class: "block text-sm font-medium text-gray-700" %>
         <%= form.select :city,
             options_for_select(cities_for_state(params[:state]), params[:city]),
-            {},
-            class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500",
+            { include_blank: "Select a city" },
+            class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5",
             required: true,
             data: { location_target: "citySelect" } %>
       </div>

@@ -42,12 +42,12 @@ RSpec.describe "weather/_forecast_index", type: :view do
       expect(rendered).to have_css(".bg-gradient-to-r")
       expect(rendered).to have_css(".from-indigo-500")
       expect(rendered).to have_css(".to-indigo-600")
-      expect(rendered).to have_content("5-Day Forecast")
+      expect(rendered).to have_content("48 Hours Forecast")
     end
 
     it "renders the forecast grid" do
       expect(rendered).to have_css(".grid")
-      expect(rendered).to have_css(".grid-cols-4")
+      expect(rendered).to have_css(".grid-cols-2")
       expect(rendered).to have_css(".gap-3")
     end
 

@@ -1,12 +1,12 @@
 <% if forecast.present? %>
   <div class="w-full mt-6 bg-white shadow-lg rounded-lg overflow-hidden">
     <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 px-6 py-4">
-      <h3 class="text-lg font-semibold text-white">5-Day Forecast</h3>
+      <h3 class="text-lg font-semibold text-white">48 Hours Forecast</h3>
     </div>
 
     <div class="p-4">
-      <div class="grid grid-cols-4 md-grid-cols-8 gap-3">
-        <%= render partial: "forecast_card", collection: forecast, as: :item %>
+      <div class="grid grid-cols-2 md:grid-cols-8 gap-3">
+        <%= render partial: "forecast_card", collection: forecast.first(16), as: :item %>
       </div>
     </div>
   </div>
