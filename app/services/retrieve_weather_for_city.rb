@@ -12,6 +12,8 @@ class RetrieveWeatherForCity < SolidService::Base
 
     result = RetrieveWeatherForGeolocation.call(latitude:, longitude:)
 
+    return fail!(error: "failed to retrieve weather for city") unless result.success?
+
     weather_record = result.weather_record
     weather_record.update(city:)
 
