@@ -19,24 +19,28 @@ RSpec.describe "weather/_forecast_card", type: :view do
     }
   end
 
-  before do
-    render partial: "weather/forecast_card", locals: { item: }
-  end
+  let(:presenter) { ForecastItemPresenter.new(item) }
 
-  it "displays the date" do
-    expect(rendered).to have_content("Jan 01")
-  end
+  subject { render partial: "weather/forecast_card", locals: { item: presenter } }
 
-  it "displays the temperature" do
-    expect(rendered).to have_content("23°F")
-  end
+  context "when the item is a forecast item presenter" do
+    before { subject }
 
-  it "displays the weather description" do
-    expect(rendered).to have_content("Clear")
-  end
+    it "displays the date" do
+      expect(rendered).to have_content("Jan 01")
+    end
 
-  it "displays the weather icon" do
-    expect(rendered).to have_css("img[src*='01d']")
+    it "displays the temperature" do
+      expect(rendered).to have_content("23°F")
+    end
+
+    it "displays the weather description" do
+      expect(rendered).to have_content("Clear")
+    end
+
+    it "displays the weather icon" do
+      expect(rendered).to have_css("img[src*='01d']")
+    end
   end
 
   context "with different weather conditions" do
@@ -59,7 +63,7 @@ RSpec.describe "weather/_forecast_card", type: :view do
     end
 
     it "displays different weather information" do
-      render partial: "weather/forecast_card", locals: { item: }
+      subject
 
       expect(rendered).to have_content("Jan 02")
       expect(rendered).to have_content("15°F")

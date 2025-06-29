@@ -1,17 +1,19 @@
 require "rails_helper"
 
 RSpec.describe WeatherController, type: :controller do
+  let(:weather_record) { create(:weather_record) }
+  let(:weather_result) do
+    double(
+      success?: true,
+      weather_record:,
+      error: nil
+    )
+  end
+
   describe "GET #index" do
     context "when latitude and longitude are provided" do
       let(:latitude) { "40.7128" }
       let(:longitude) { "-74.0060" }
-      let(:weather_result) do
-        double(
-          "WeatherResult",
-          weather_record: create(:weather_record),
-          error: nil
-        )
-      end
 
       before do
         allow(RetrieveWeatherForGeolocation).to receive(:call).and_return(weather_result)
@@ -84,13 +86,6 @@ RSpec.describe WeatherController, type: :controller do
   describe "POST #search" do
     let(:city) { "New York" }
     let(:state) { "NY" }
-    let(:weather_result) do
-      double(
-        "WeatherResult",
-        weather_record: create(:weather_record),
-        error: nil
-      )
-    end
 
     before do
       allow(RetrieveWeatherForCity).to receive(:call).and_return(weather_result)
@@ -133,7 +128,7 @@ RSpec.describe WeatherController, type: :controller do
     context "when service returns error" do
       let(:weather_result) do
         double(
-          "WeatherResult",
+          success?: false,
           weather_record: nil,
           error: "City not found"
         )
@@ -149,7 +144,7 @@ RSpec.describe WeatherController, type: :controller do
     context "when service returns nil weather record" do
       let(:weather_result) do
         double(
-          "WeatherResult",
+          success?: true,
           weather_record: nil,
           error: nil
         )

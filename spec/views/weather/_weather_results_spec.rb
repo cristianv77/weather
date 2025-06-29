@@ -3,10 +3,13 @@ require "rails_helper"
 RSpec.describe "weather/_weather_results", type: :view do
   context "when weather data is available" do
     let(:weather_record) { create(:weather_record) }
+    let(:current_weather_presenter) { WeatherPresenter.new(weather_record) }
+    let(:forecast_presenter) { ForecastPresenter.new(weather_record.forecast) }
 
     subject do
       render partial: "weather/weather_results", locals: {
-        weather_record:,
+        weather_presenter: current_weather_presenter,
+        forecast_presenter:,
         error: nil
       }
     end
