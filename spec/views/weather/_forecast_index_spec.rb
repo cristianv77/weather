@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "weather/_forecast_index", type: :view do
+  let(:forecast_presenter) { ForecastPresenter.new(forecast) }
+  subject { render partial: "weather/forecast_index", locals: { forecast_presenter: } }
+
   context "when forecast data is available" do
     let(:forecast) do
       [
@@ -27,34 +30,34 @@ RSpec.describe "weather/_forecast_index", type: :view do
       ]
     end
 
-    before do
-      render partial: "weather/forecast_index", locals: { forecast: }
-    end
+    context "when the presenter is a forecast presenter" do
+      before { subject }
 
-    it "renders the forecast container" do
-      expect(rendered).to have_css(".w-full")
-      expect(rendered).to have_css(".bg-white")
-      expect(rendered).to have_css(".shadow-lg")
-      expect(rendered).to have_css(".rounded-lg")
-    end
+      it "renders the forecast container" do
+        expect(rendered).to have_css(".w-full")
+        expect(rendered).to have_css(".bg-white")
+        expect(rendered).to have_css(".shadow-lg")
+        expect(rendered).to have_css(".rounded-lg")
+      end
 
-    it "renders the forecast header" do
-      expect(rendered).to have_css(".bg-gradient-to-r")
-      expect(rendered).to have_css(".from-indigo-500")
-      expect(rendered).to have_css(".to-indigo-600")
-      expect(rendered).to have_content("48 Hours Forecast")
-    end
+      it "renders the forecast header" do
+        expect(rendered).to have_css(".bg-gradient-to-r")
+        expect(rendered).to have_css(".from-indigo-500")
+        expect(rendered).to have_css(".to-indigo-600")
+        expect(rendered).to have_content("48 Hours Forecast")
+      end
 
-    it "renders the forecast grid" do
-      expect(rendered).to have_css(".grid")
-      expect(rendered).to have_css(".grid-cols-2")
-      expect(rendered).to have_css(".gap-3")
-    end
+      it "renders the forecast grid" do
+        expect(rendered).to have_css(".grid")
+        expect(rendered).to have_css(".grid-cols-2")
+        expect(rendered).to have_css(".gap-3")
+      end
 
-    it "displays forecast data" do
-      expect(rendered).to have_content("Clear")
-      expect(rendered).to have_content("Clouds")
-      expect(rendered).to have_content("Rain")
+      it "displays forecast data" do
+        expect(rendered).to have_content("Clear")
+        expect(rendered).to have_content("Clouds")
+        expect(rendered).to have_content("Rain")
+      end
     end
   end
 
@@ -62,7 +65,7 @@ RSpec.describe "weather/_forecast_index", type: :view do
     let(:forecast) { [] }
 
     it "does not render the forecast container" do
-      render partial: "weather/forecast_index", locals: { forecast: }
+      subject
 
       expect(rendered).to be_empty
     end
@@ -72,7 +75,7 @@ RSpec.describe "weather/_forecast_index", type: :view do
     let(:forecast) { nil }
 
     it "does not render the forecast container" do
-      render partial: "weather/forecast_index", locals: { forecast: }
+      subject
 
       expect(rendered).to be_empty
     end
@@ -90,7 +93,7 @@ RSpec.describe "weather/_forecast_index", type: :view do
     end
 
     it "renders single forecast card" do
-      render partial: "weather/forecast_index", locals: { forecast: }
+      subject
 
       expect(rendered).to have_css(".bg-white", count: 1)
       expect(rendered).to have_content("Sunny")
@@ -129,7 +132,7 @@ RSpec.describe "weather/_forecast_index", type: :view do
     end
 
     it "renders all forecast cards" do
-      render partial: "weather/forecast_index", locals: { forecast: }
+      subject
 
       expect(rendered).to have_content("Clear")
       expect(rendered).to have_content("Clouds")

@@ -32,13 +32,11 @@ RSpec.describe "weather/_principal_card", type: :view do
   let(:city) { "New York" }
   let(:state) { "NY" }
   let(:country) { "US" }
+  let(:weather_record) { create(:weather_record, current_weather:, city:, state:, country:, forecast:) }
+  let(:current_weather_presenter) { WeatherPresenter.new(weather_record) }
 
   subject { render partial: "weather/principal_card", locals: {
-    current_weather:,
-    city:,
-    state:,
-    country:,
-    forecast:
+    weather_presenter: current_weather_presenter
   } }
 
   it "renders the principal card container" do

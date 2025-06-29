@@ -1,12 +1,11 @@
-<% weather = current_weather.dig("weather")&.first %>
-<% if weather.present? %>
+<% if weather_presenter.has_weather_data? %>
   <div class="w-full mt-8 bg-white shadow-lg rounded-lg overflow-hidden">
     <div class="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
       <h2 class="text-xl font-semibold text-white">
-        <%= [ city, state, country ].compact.join(", ") %>
+        <%= weather_presenter.location %>
       </h2>
       <p class="text-blue-100 text-sm">
-        <%= weather.dig("description")&.titleize %>
+        <%= weather_presenter.description %>
       </p>
     </div>
 
@@ -14,40 +13,38 @@
       <div class="flex items-center justify-between mb-4">
         <div class="flex items-center space-x-4">
           <div class="text-3xl font-bold text-gray-900">
-            <%= current_weather.dig("main", "temp")&.round %>°F
+            <%= weather_presenter.temperature_display %>
           </div>
-          <% if weather.dig("icon") %>
-            <%= weather_icon(weather) %>
-          <% end %>
+          <%= weather_presenter.icon_display %>
         </div>
         <div class="text-right">
           <div class="text-sm text-gray-600">
-            Feels like: <%= current_weather.dig("main", "feels_like")&.round %>°F
+            Feels like: <%= weather_presenter.feels_like_display %>
           </div>
           <div class="text-sm text-gray-600">
-            Humidity: <%= current_weather.dig("main", "humidity") %>%
+            Humidity: <%= weather_presenter.humidity_display %>
           </div>
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4 text-sm">
         <div class="text-gray-600">
-          <span class="font-medium">High:</span> <%= current_weather.dig("main", "temp_max")&.round %>°F
+          <span class="font-medium">High:</span> <%= weather_presenter.temp_max_display %>
         </div>
         <div class="text-gray-600">
-          <span class="font-medium">Low:</span> <%= current_weather.dig("main", "temp_min")&.round %>°F
+          <span class="font-medium">Low:</span> <%= weather_presenter.temp_min_display %>
         </div>
         <div class="text-gray-600">
-          <span class="font-medium">Sunrise:</span> <%= format_time(current_weather.dig("sys", "sunrise")) %>
+          <span class="font-medium">Sunrise:</span> <%= weather_presenter.sunrise_display %>
         </div>
         <div class="text-gray-600">
-          <span class="font-medium">Sunset:</span> <%= format_time(current_weather.dig("sys", "sunset")) %>
+          <span class="font-medium">Sunset:</span> <%= weather_presenter.sunset_display %>
         </div>
         <div class="text-gray-600">
-          <span class="font-medium">Wind:</span> <%= current_weather.dig("wind", "speed") %> mph
+          <span class="font-medium">Wind:</span> <%= weather_presenter.wind_speed_display %>
         </div>
         <div class="text-gray-600">
-          <span class="font-medium">Pressure:</span> <%= current_weather.dig("main", "pressure") %> hPa
+          <span class="font-medium">Pressure:</span> <%= weather_presenter.pressure_display %>
         </div>
       </div>
     </div>

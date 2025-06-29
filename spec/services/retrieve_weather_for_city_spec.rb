@@ -28,6 +28,8 @@ RSpec.describe RetrieveWeatherForCity do
         allow(OpenWeather::PositionForCity).to receive(:call).and_return(position_result)
         allow(RetrieveWeatherForGeolocation).to receive(:call).and_return(weather_result)
         allow(weather_result.weather_record).to receive(:update)
+        # Mock CS.states to return the full state name
+        allow(CS).to receive(:states).with("US").and_return({ NY: "New York" })
       end
 
       it "calls OpenWeather::PositionForCity with correct parameters" do
@@ -63,6 +65,10 @@ RSpec.describe RetrieveWeatherForCity do
     end
 
     context "when city is missing" do
+      before do
+        allow(CS).to receive(:states).with("US").and_return({ NY: "New York" })
+      end
+
       it "returns failure with error message" do
         result = described_class.call(state:)
 
@@ -83,6 +89,19 @@ RSpec.describe RetrieveWeatherForCity do
     context "when both city and state are missing" do
       it "returns failure with error message" do
         result = described_class.call
+
+        expect(result).to be_fail
+        expect(result.error).to eq("city and state are required")
+      end
+    end
+
+    context "when state abbreviation is invalid" do
+      before do
+        allow(CS).to receive(:states).with("US").and_return({ NY: "New York" })
+      end
+
+      it "returns failure with error message" do
+        result = described_class.call(city:, state: "INVALID")
 
         expect(result).to be_fail
         expect(result.error).to eq("city and state are required")

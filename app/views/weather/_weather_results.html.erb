@@ -7,8 +7,8 @@
         <%= error %>
       </div>
     </div>
-  <% elsif weather_record %>
-    <%= render "weather/principal_card", current_weather: weather_record.current_weather, city: weather_record.city, state: weather_record.state, country: weather_record.country %>
-    <%= render "weather/forecast_index", forecast: weather_record.forecast %>
+  <% elsif weather_presenter %>
+    <%= render "weather/principal_card", weather_presenter: weather_presenter %>
+    <%= render "weather/forecast_index", forecast_presenter: forecast_presenter %>
   <% end %>
 <% end %>
