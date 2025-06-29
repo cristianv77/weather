@@ -93,11 +93,15 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
+          CI: true
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/weather_test
           OPEN_WEATHER_API_URL: https://api.openweathermap.org
           OPEN_WEATHER_API_KEY: test_api_key_for_ci
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare && bundle exec rspec
+        run: |
+          bin/rails tailwindcss:build
+          bin/rails db:test:prepare
+          bundle exec rspec
 
       - name: Keep test artifacts from failed tests
         uses: actions/upload-artifact@v4
