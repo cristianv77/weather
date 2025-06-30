@@ -1,37 +1,7 @@
 require "rails_helper"
 
 RSpec.describe WeatherPresenter do
-  let(:weather_record) do
-    create(:weather_record, {
-      city: "New York",
-      state: "NY",
-      country: "US",
-      current_weather: {
-        "weather" => [
-          {
-            "main" => "Clear",
-            "description" => "clear sky",
-            "icon" => "01d"
-          }
-        ],
-        "main" => {
-          "temp" => 22.5,
-          "feels_like" => 24.0,
-          "humidity" => 65,
-          "temp_max" => 25.0,
-          "temp_min" => 18.0,
-          "pressure" => 1013
-        },
-        "wind" => {
-          "speed" => 5.2
-        },
-        "sys" => {
-          "sunrise" => 1640995200,
-          "sunset" => 1641031200
-        }
-      }
-    })
-  end
+  let(:weather_record) { create(:weather_record) }
 
   let(:presenter) { described_class.new(weather_record) }
 
@@ -48,13 +18,13 @@ RSpec.describe WeatherPresenter do
 
   describe "#description" do
     it "returns the weather description" do
-      expect(presenter.description).to eq("Clear Sky")
+      expect(presenter.description).to eq("Clear")
     end
   end
 
   describe "#icon_display" do
     it "returns the weather icon" do
-      expect(presenter.icon_display).to eq("<img alt=\"Clear Sky\" class=\"w-16 h-16\" src=\"https://openweathermap.org/img/wn/01d@2x.png\" />")
+      expect(presenter.icon_display).to eq("<img alt=\"Clear\" class=\"w-16 h-16\" src=\"https://openweathermap.org/img/wn/01d@2x.png\" />")
     end
   end
 
@@ -88,7 +58,7 @@ RSpec.describe WeatherPresenter do
 
   describe "#temperature_display" do
     it "returns the temperature" do
-      expect(presenter.temperature_display).to eq("23°F")
+      expect(presenter.temperature_display).to eq("20°F")
     end
   end
 end

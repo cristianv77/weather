@@ -1,29 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "Weather search", type: :feature do
-  before do
-    weather_record = create(:weather_record,
-      city: "New York",
-      state: "NY",
-      country: "US",
-      latitude: 40.7128,
-      longitude: -74.0060,
-      current_weather: {
-        "main" => { "temp" => 20 },
-        "weather" => [ { "description" => "Clear", "icon" => "01d" } ]
-      },
-      forecast: [
-        {
-          "date" => "2023-01-01",
-          "weather" => [ { "description" => "Clear", "icon" => "01d" } ],
-          "main" => { "temp" => 20 }
-        }
-      ],
-      retrieved_at: Time.current
-    )
+  let(:weather_record) { create(:weather_record) }
 
+  before do
     allow(RetrieveWeatherForCity).to receive(:call).and_return(
-      double(success?: true, weather_record: weather_record, error: nil)
+      double(success?: true, weather_record:, error: nil)
     )
   end
 
